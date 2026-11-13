@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAM BAZAR - सरकारी योजना पोर्टल</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+ font-family:Arial,sans-serif;
+ background:#f4f7f2;color:#17251d;
+}
+header{
+ background:linear-gradient(120deg,#075b37,#07834d);
+ color:white;padding:20px 6%;
+}
+.nav{
+ display:flex;justify-content:space-between;
+ align-items:center;flex-wrap:wrap;gap:12px;
+}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#ffda68}
+.nav a{color:white;text-decoration:none;margin:8px}
+.hero{
+ text-align:center;padding:55px 15px;
+ background:linear-gradient(120deg,#e4f8e9,#fff5db);
+}
+.hero h1{font-size:35px;color:#075b37;margin-bottom:12px}
+.hero p{color:#53645a;font-size:16px}
+.search{
+ margin:25px auto;max-width:650px;
+ display:flex;gap:8px;padding:5px;
+ background:white;border-radius:12px;
+ box-shadow:0 3px 15px #0001;
+}
+.search input{
+ flex:1;min-width:0;border:0;outline:0;
+ padding:14px;font-size:16px;
+}
+button{
+ border:0;border-radius:8px;padding:12px 18px;
+ background:#087c49;color:white;
+ cursor:pointer;font-size:15px;
+}
+button:hover{background:#055d36}
+.container{max-width:1150px;margin:auto;padding:30px 18px}
+.section-title{font-size:25px;color:#075b37;margin-bottom:20px}
+.categories{
+ display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px;
+}
+.categories button{background:white;color:#075b37;border:1px solid #b9d8c5}
+.categories button.active,.categories button:hover{
+ background:#087c49;color:white;
+}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+ gap:18px;
+}
+.card{
+ background:white;border-radius:13px;padding:20px;
+ box-shadow:0 3px 14px #0000000c;
+ border:1px solid #e4eee7;
+}
+.card .emoji{font-size:30px;margin-bottom:10px}
+.card h3{color:#075b37;margin-bottom:10px}
+.card p{color:#607067;line-height:1.6;font-size:14px}
+.card a{
+ display:inline-block;margin-top:15px;
+ color:#087c49;text-decoration:none;font-weight:bold;
+}
+.tag{
+ display:inline-block;background:#e3f5e9;
+ color:#087c49;padding:5px 9px;
+ border-radius:20px;font-size:12px;margin-bottom:12px;
+}
+.ai-section{
+ background:#e9f5ec;padding:30px 15px;
+}
+.chatbox{
+ max-width:750px;margin:auto;background:white;
+ border-radius:15px;overflow:hidden;
+ box-shadow:0 3px 20px #0001;
+}
+.chat-head{
+ background:#075b37;color:white;padding:18px;
+}
+.chat-head p{font-size:13px;margin-top:5px;color:#d8f4e3}
+.settings{padding:15px;display:grid;gap:10px}
+.settings label{font-size:13px;font-weight:bold}
+.settings input,.settings select{
+ padding:12px;border:1px solid #ccd9d0;
+ border-radius:8px;width:100%;background:white;
+}
+.chat-messages{
+ height:350px;overflow-y:auto;padding:15px;
+ background:#fbfdfb;
+}
+.msg{
+ padding:12px 14px;border-radius:12px;
+ margin-bottom:12px;max-width:90%;
+ line-height:1.6;white-space:pre-wrap;
+ overflow-wrap:anywhere;
+}
+.user{background:#dff3e5;margin-left:auto}
+.bot{background:#edf0ed;margin-right:auto}
+.chat-input{
+ display:flex;gap:8px;padding:12px;
+ border-top:1px solid #eee;
+}
+.chat-input input{
+ flex:1;min-width:0;padding:13px;
+ border:1px solid #ddd;border-radius:8px;
+ outline:0;
+}
+.quick{
+ padding:0 15px 15px;display:flex;gap:8px;flex-wrap:wrap
+}
+.quick button{font-size:12px;padding:9px;background:#e6f5eb;color:#075b37}
+footer{
+ background:#073f2a;color:white;text-align:center;
+ padding:25px 15px;line-height:1.8;
+}
+.note{font-size:12px;color:#69756d;margin-top:12px}
+.hidden{display:none}
+@media(max-width:600px){
+ .hero h1{font-size:27px}
+ .logo{font-size:21px}
+ .chat-messages{height:320px}
+ .chat-input button{padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="nav">
+  <div class="logo">🌾 GRAM <span>BAZAR</span></div>
+  <nav>
+   <a href="#home">होम</a>
+   <a href="#schemes">सरकारी योजनाएँ</a>
+   <a href="#ai">AI सहायता</a>
+  </nav>
+ </div>
+</header>
+
+<section class="hero" id="home">
+ <h1>भारत सरकार की योजनाएँ</h1>
+ <p>हर नागरिक तक सरकारी योजनाओं की सही जानकारी पहुँचाना हमारा उद्देश्य।</p>
+
+ <div class="search">
+  <input id="searchInput" placeholder="योजना का नाम खोजें...">
+  <button onclick="searchSchemes()">खोजें</button>
+ </div>
+ <p>किसान | विद्यार्थी | महिला | युवा | बुजुर्ग</p>
+</section>
+
+<main class="container" id="schemes">
+ <h2 class="section-title">📋 प्रमुख सरकारी योजनाएँ</h2>
+
+ <div class="categories">
+  <button class="active" onclick="filterSchemes('सभी',this)">सभी</button>
+  <button onclick="filterSchemes('किसान',this)">किसान</button>
+  <button onclick="filterSchemes('शिक्षा',this)">शिक्षा</button>
+  <button onclick="filterSchemes('महिला',this)">महिला</button>
+  <button onclick="filterSchemes('आवास',this)">आवास</button>
+  <button onclick="filterSchemes('स्वास्थ्य',this)">स्वास्थ्य</button>
+ </div>
+
+ <div class="grid" id="schemeGrid"></div>
+ <p class="note">नोट: यह प्रमुख योजनाओं का शुरुआती उदाहरण संग्रह है, सभी सरकारी योजनाओं की पूरी सूची नहीं। पात्रता और लाभ की पुष्टि आधिकारिक पोर्टल से करें।</p>
+</main>
+
+<section class="ai-section" id="ai">
+ <div class="chatbox">
+  <div class="chat-head">
+   <h2>🤖 GRAM BAZAR AI</h2>
+   <p>सरकारी योजनाओं के बारे में हिंदी में सवाल पूछें।</p>
+  </div>
+
+  <div class="settings">
+   <label>Groq API Key</label>
+   <input type="password" id="apiKey" placeholder="अपनी Groq API Key डालें">
+
+   <label>AI Model चुनें</label>
+   <select id="model">
+    <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
+    <option value="openai/gpt-oss-20b">GPT OSS 20B</option>
+    <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+    <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
+   </select>
+   <button onclick="loadModels()" style="width:100%">🔄 उपलब्ध मॉडल अपडेट करें</button>
+  </div>
+
+  <div class="chat-messages" id="messages">
+   <div class="msg bot">
+    नमस्कार! 🙏 मैं GRAM BAZAR AI हूँ।
+
+    आप मुझसे किसी भी सरकारी योजना, पात्रता, लाभ और आवेदन प्रक्रिया के बारे में पूछ सकते हैं।
+   </div>
+  </div>
+
+  <div class="quick">
+   <button onclick="quickAsk('किसानों के लिए सरकारी योजनाएँ बताओ')">🌾 किसान योजना</button>
+   <button onclick="quickAsk('विद्यार्थियों के लिए छात्रवृत्ति बताओ')">📚 छात्रवृत्ति</button>
+   <button onclick="quickAsk('महिलाओं के लिए योजनाएँ बताओ')">👩 महिला योजना</button>
+   <button onclick="quickAsk('प्रधानमंत्री आवास योजना समझाओ')">🏠 आवास योजना</button>
+  </div>
+
+  <div class="chat-input">
+   <input id="question" placeholder="अपना सवाल लिखें..."
+    onkeydown="if(event.key==='Enter')sendMessage()">
+   <button id="sendBtn" onclick="sendMessage()">भेजें ➤</button>
+  </div>
+ </div>
+ <p style="text-align:center;margin-top:15px;color:#52665a;font-size:12px">
+  AI की जानकारी गलत या पुरानी हो सकती है। आवेदन से पहले आधिकारिक वेबसाइट जरूर जाँचें।
+ </p>
+</section>
+
+<footer>
+ <h2>🌾 GRAM BAZAR</h2>
+ <p>सरकारी योजनाओं की जानकारी, अब आसान हिंदी में।</p>
+ <p>यह एक स्वतंत्र सूचना पोर्टल है। भारत सरकार की आधिकारिक वेबसाइट नहीं है।</p>
+ <p>© 2026 GRAM BAZAR | All Rights Reserved</p>
+</footer>
+
+<script>
+const schemes = [
+ {
+  name:"प्रधानमंत्री किसान सम्मान निधि",
+  category:"किसान",emoji:"🌾",
+  desc:"पात्र किसान परिवारों को निर्धारित शर्तों के अनुसार आर्थिक सहायता।",
+  url:"https://pmkisan.gov.in/"
+ },
+ {
+  name:"प्रधानमंत्री फसल बीमा योजना",
+  category:"किसान",emoji:"🚜",
+  desc:"अधिसूचित फसलों के लिए प्राकृतिक आपदाओं और अन्य निर्धारित जोखिमों से बीमा सुरक्षा।",
+  url:"https://pmfby.gov.in/"
+ },
+ {
+  name:"किसान क्रेडिट कार्ड",
+  category:"किसान",emoji:"💳",
+  desc:"कृषि और संबंधित जरूरतों के लिए पात्र किसानों को बैंक के माध्यम से ऋण सुविधा।",
+  url:"https://www.myscheme.gov.in/"
+ },
+ {
+  name:"राष्ट्रीय छात्रवृत्ति पोर्टल",
+  category:"शिक्षा",emoji:"📚",
+  desc:"विभिन्न केंद्रीय और अन्य छात्रवृत्ति योजनाओं की जानकारी और आवेदन।",
+  url:"https://scholarships.gov.in/"
+ },
+ {
+  name:"PM-USP छात्रवृत्ति योजना",
+  category:"शिक्षा",emoji:"🎓",
+  desc:"पात्र कॉलेज और विश्वविद्यालय विद्यार्थियों के लिए छात्रवृत्ति योजना।",
+  url:"https://scholarships.gov.in/"
+ },
+ {
+  name:"बेटी बचाओ बेटी पढ़ाओ",
+  category:"महिला",emoji:"👧",
+  desc:"बालिका के जन्म, शिक्षा और सशक्तिकरण को प्रोत्साहित करने की पहल।",
+  url:"https://wcd.gov.in/"
+ },
+ {
+  name:"प्रधानमंत्री उज्ज्वला योजना",
+  category:"महिला",emoji:"🔥",
+  desc:"पात्र परिवारों की वयस्क महिलाओं को LPG कनेक्शन उपलब्ध कराने की योजना।",
+  url:"https://www.pmuy.gov.in/"
+ },
+ {
+  name:"प्रधानमंत्री आवास योजना",
+  category:"आवास",emoji:"🏠",
+  desc:"पात्र परिवारों को ग्रामीण और शहरी आवास सहायता।",
+  url:"https://pmaymis.gov.in/"
+ },
+ {
+  name:"आयुष्मान भारत PM-JAY",
+  category:"स्वास्थ्य",emoji:"🏥",
+  desc:"पात्र परिवारों को निर्धारित शर्तों के अनुसार अस्पताल में भर्ती उपचार का स्वास्थ्य कवर।",
+  url:"https://beneficiary.nha.gov.in/"
+ },
+ {
+  name:"प्रधानमंत्री जन धन योजना",
+  category:"सभी",emoji:"🏦",
+  desc:"बैंकिंग सेवाओं तक पहुँच बढ़ाने के लिए वित्तीय समावेशन योजना।",
+  url:"https://pmjdy.gov.in/"
+ },
+ {
+  name:"अटल पेंशन योजना",
+  category:"सभी",emoji:"👴",
+  desc:"पात्र ग्राहकों के लिए योगदान आधारित पेंशन योजना।",
+  url:"https://www.npscra.nsdl.co.in/"
+ },
+ {
+  name:"प्रधानमंत्री मुद्रा योजना",
+  category:"सभी",emoji:"💼",
+  desc:"पात्र छोटे व्यवसायों और उद्यमियों को ऋण सहायता।",
+  url:"https://www.mudra.org.in/"
+ }
+];
+
+const grid=document.getElementById("schemeGrid");
+
+function showSchemes(list){
+ grid.innerHTML="";
+ if(!list.length){
+  grid.innerHTML="<p>कोई योजना नहीं मिली। दूसरा नाम खोजें।</p>";
+  return;
+ }
+ list.forEach(s=>{
+  const card=document.createElement("div");
+  card.className="card";
+  const emoji=document.createElement("div");
+  emoji.className="emoji";
+  emoji.textContent=s.emoji;
+  const tag=document.createElement("span");
+  tag.className="tag";
+  tag.textContent=s.category;
+  const title=document.createElement("h3");
+  title.textContent=s.name;
+  const desc=document.createElement("p");
+  desc.textContent=s.desc;
+  const link=document.createElement("a");
+  link.href=s.url;
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+  link.textContent="आधिकारिक वेबसाइट देखें ↗";
+  card.append(emoji,tag,title,desc,link);
+  grid.appendChild(card);
+ });
+}
+showSchemes(schemes);
+
+function filterSchemes(category,btn){
+ document.querySelectorAll(".categories button")
+ .forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+ showSchemes(category==="सभी"?schemes:
+ schemes.filter(s=>s.category===category));
+}
+
+function searchSchemes(){
+ const q=document.getElementById("searchInput").value.trim().toLowerCase();
+ showSchemes(schemes.filter(s=>
+ (s.name+" "+s.category+" "+s.desc).toLowerCase().includes(q)
+ ));
+}
+
+document.getElementById("searchInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter")searchSchemes();
+});
+
+let historyMessages=[
+ {role:"system",content:`आप GRAM BAZAR के हिंदी सरकारी योजना सहायक हैं।
+हमेशा सरल और स्पष्ट हिंदी में जवाब दें।
+आपका काम भारत की केंद्र और राज्य सरकार की योजनाओं की जानकारी समझाना है।
+जवाब में योजना का नाम, उद्देश्य, पात्रता, लाभ, जरूरी दस्तावेज और आवेदन प्रक्रिया बताएं।
+कभी भी पात्रता, राशि, तारीख, नियम या आवेदन लिंक गढ़कर न बताएं।
+यदि किसी जानकारी की पुष्टि नहीं है तो स्पष्ट बताएं।
+योजनाओं के नियम बदल सकते हैं, इसलिए आधिकारिक सरकारी पोर्टल से सत्यापन करने की सलाह दें।
+आप यह दावा न करें कि आपने किसी सरकारी डेटाबेस को लाइव चेक किया है।
+यह वेबसाइट सरकारी विभाग नहीं है।` }
+];
+
+function addMessage(text,type){
+ const div=document.createElement("div");
+ div.className="msg "+type;
+ div.textContent=text;
+ const box=document.getElementById("messages");
+ box.appendChild(div);
+ box.scrollTop=box.scrollHeight;
+ return div;
+}
+
+async function loadModels(){
+ const key=document.getElementById("apiKey").value.trim();
+ if(!key){alert("पहले Groq API Key डालें।");return;}
+ try{
+  const response=await fetch("https://api.groq.com/openai/v1/models",{
+   headers:{Authorization:"Bearer "+key}
+  });
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error?.message||"मॉडल लोड नहीं हुए");
+  const select=document.getElementById("model");
+  const old=select.value;
+  select.innerHTML="";
+  (data.data||[]).filter(m=>m.active!==false).forEach(m=>{
+   const opt=document.createElement("option");
+   opt.value=m.id;
+   opt.textContent=m.id;
+   select.appendChild(opt);
+  });
+  if([...select.options].some(o=>o.value===old))select.value=old;
+  alert("मॉडल सूची अपडेट हो गई!");
+ }catch(e){
+  alert("त्रुटि: "+e.message);
+ }
+}
+
+function quickAsk(q){
+ document.getElementById("question").value=q;
+ sendMessage();
+}
+
+async function sendMessage(){
+ const input=document.getElementById("question");
+ const key=document.getElementById("apiKey").value.trim();
+ const question=input.value.trim();
+ const model=document.getElementById("model").value;
+ if(!key){alert("कृपया अपनी Groq API Key डालें।");return;}
+ if(!question)return;
+
+ input.value="";
+ addMessage(question,"user");
+ historyMessages.push({role:"user",content:question});
+
+ const btn=document.getElementById("sendBtn");
+ btn.disabled=true;
+ btn.textContent="...";
+ const loading=addMessage("जानकारी तैयार की जा रही है...","bot");
+
+ try{
+  const response=await fetch(
+   "https://api.groq.com/openai/v1/chat/completions",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json",
+     "Authorization":"Bearer "+key
+    },
+    body:JSON.stringify({
+     model:model,
+     messages:historyMessages,
+     temperature:0.4,
+     max_completion_tokens:1500
+    })
+   }
+  );
+
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error?.message||"API अनुरोध असफल");
+
+  const answer=data.choices?.[0]?.message?.content;
+  if(!answer)throw new Error("AI से खाली जवाब मिला।");
+
+  loading.textContent=answer;
+  historyMessages.push({role:"assistant",content:answer});
+
+ }catch(error){
+  loading.textContent="⚠️ त्रुटि: "+error.message;
+  historyMessages.pop();
+ }finally{
+  btn.disabled=false;
+  btn.textContent="भेजें ➤";
+  document.getElementById("messages").scrollTop=
+   document.getElementById("messages").scrollHeight;
+ }
+}
+</script>
+</body>
+</html>
